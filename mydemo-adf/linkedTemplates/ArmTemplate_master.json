@@ -1,0 +1,139 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "mydemo-adf"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
+		"blbstrgls_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'blbstrgls'"
+		},
+		"linkedService1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'linkedService1'"
+		},
+		"linkedService2src_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'linkedService2src'"
+		},
+		"ln_sqldatabase_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ln_sqldatabase'"
+		},
+		"ls_AzureBlobStorage_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_AzureBlobStorage'"
+		},
+		"targetls_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'targetls'"
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://ramkey.vault.azure.net/"
+		},
+		"ls_HttpServer_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com/"
+		},
+		"ls_withkeyvault_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "connectionstring"
+		},
+		"targetls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://targetgn2.dfs.core.windows.net"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "mydemo-adf_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureSqlDatabase1_connectionString": {
+						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
+					},
+					"blbstrgls_connectionString": {
+						"value": "[parameters('blbstrgls_connectionString')]"
+					},
+					"linkedService1_connectionString": {
+						"value": "[parameters('linkedService1_connectionString')]"
+					},
+					"linkedService2src_connectionString": {
+						"value": "[parameters('linkedService2src_connectionString')]"
+					},
+					"ln_sqldatabase_connectionString": {
+						"value": "[parameters('ln_sqldatabase_connectionString')]"
+					},
+					"ls_AzureBlobStorage_connectionString": {
+						"value": "[parameters('ls_AzureBlobStorage_connectionString')]"
+					},
+					"targetls_accountKey": {
+						"value": "[parameters('targetls_accountKey')]"
+					},
+					"AzureKeyVault1_properties_typeProperties_baseUrl": {
+						"value": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
+					},
+					"ls_HttpServer_properties_typeProperties_url": {
+						"value": "[parameters('ls_HttpServer_properties_typeProperties_url')]"
+					},
+					"targetls_properties_typeProperties_url": {
+						"value": "[parameters('targetls_properties_typeProperties_url')]"
+					},
+					"ls_withkeyvault_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('ls_withkeyvault_properties_typeProperties_connectionString_secretName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "mydemo-adf_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'mydemo-adf_ArmTemplate_0')]"
+			]
+		}
+	]
+}

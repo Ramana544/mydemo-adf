@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "mydemo-adf"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"blbstrgls_connectionString": {
+			"value": ""
+		},
+		"linkedService1_connectionString": {
+			"value": ""
+		},
+		"linkedService2src_connectionString": {
+			"value": ""
+		},
+		"ln_sqldatabase_connectionString": {
+			"value": ""
+		},
+		"ls_AzureBlobStorage_connectionString": {
+			"value": ""
+		},
+		"targetls_accountKey": {
+			"value": ""
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": "https://ramkey.vault.azure.net/"
+		},
+		"ls_HttpServer_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/"
+		},
+		"ls_withkeyvault_properties_typeProperties_connectionString_secretName": {
+			"value": "connectionstring"
+		},
+		"targetls_properties_typeProperties_url": {
+			"value": "https://targetgn2.dfs.core.windows.net"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
