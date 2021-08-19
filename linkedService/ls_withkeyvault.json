@@ -1,0 +1,19 @@
+{
+	"name": "ls_withkeyvault",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "connectionstring"
+			}
+		},
+		"description": "we can use this for to connect storagrinput"
+	}
+}
